@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
