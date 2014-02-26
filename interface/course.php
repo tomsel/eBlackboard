@@ -6,7 +6,14 @@
     </head>
     <body>
         <h1>E - blackBoard page 2</h1>
-        <?php echo htmlspecialchars($_GET["course"]);
-      ?>
+        <?php 
+		$lessons = 2; //hämta antal lektioner från databas
+		$lesson_date = '2014-02-25';
+		echo $_GET["course"]."</br>";
+		for($i=0; $i<$lessons; $i++){
+			echo '<a href="display.php">'.$lesson_date."</a></br>";
+		}
+			
+      	?>
     </body>
 </html>
