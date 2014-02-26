@@ -6,6 +6,7 @@
     </head>
     <body>
         <h1>E - blackBoard page 2</h1>
-        <?php echo htmlspecialchars($_GET["course"]);?>
+        <?php echo htmlspecialchars($_GET["course"]);
+      ?>
     </body>
 </html>

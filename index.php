@@ -11,6 +11,13 @@
         <script type="text/javascript" src="library/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
+        <?php
+         if (function_exists('sqlite_open')) {
+          echo 'Sqlite PHP extension loaded';
+        } else {
+          echo 'it doesnt suppport sqlite3';
+        }
+        ?>
         <h1>E- blackBoard</h1>
         <form action="interface/course.php" method="get">
             <select name="course">

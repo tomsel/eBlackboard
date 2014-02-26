@@ -4,7 +4,6 @@
         <meta charset="utf-8" />
     </head>
     <body>
-      <H1>Database is supposed to be here</H1>
     <?php
       class MyDB extends SQLite3
       {
@@ -21,13 +20,12 @@
       }
 
       $sql =<<<EOF
-         CREATE TABLE LectureNotes
-         (ID INT PRIMARY KEY     NOT NULL,
-         PATH            TEXT    NOT NULL,
-         DATE            DATETIME NOT NULL,
-         COURSE          TEXT  
-         );
-  EOF;
+        CREATE TABLE LECTURENOTES
+        (ID INT PRIMARY KEY       NOT NULL,
+        PATH            TEXT      NOT NULL,
+        DATE            DATETIME  NOT NULL,
+        COURSE        CHAR(50));
+EOF;
 
       $ret = $db->exec($sql);
       if(!$ret){
