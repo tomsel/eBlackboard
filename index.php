@@ -21,7 +21,7 @@
         <h1>E- blackBoard</h1>
         <form action="interface/course.php" method="get">
             <select name="course">
-                <option value="volvo">Volvo</option>
+                <option value="TDA517">TDA517</option>
                 <option value="saab">Saab</option>
                 <option value="mercedes">Mercedes</option>
                 <option value="audi">Audi</option>
