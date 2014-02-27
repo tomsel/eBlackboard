@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <title>Stu Dent's Home Page + Date and Time</title>
         
     </head>
     <body>
-        <h1>E - blackBoard page 2</h1>
-        <?php 
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/navigation.php"; ?>
+        <?php
+        echo "this is wrong ";
         include ('database.php');
 		echo "database.php is included<br />";
         $database = new MyDb();
         $database ->create_table();
-	//$database ->add_data();
+	    //$database ->add_data();
 	echo '<br />';
         //$database ->show_data();
         
