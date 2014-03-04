@@ -1,10 +1,25 @@
 <?php
-      class MyDB extends SQLite3
+      class MyDB
       {
+        private $link;
+
          function __construct()
          {
-            $this->open('test.db');
-            echo "test.db opened<br />";
+            $this -> link = mysql_connect('localhost', 'tomas', 'abc');
+            if (!($this -> link)) {
+              die('Could not open database ' . mysql_error());
+            }
+            echo 'Connected successfully ';
+            if (!mysql_select_db('eblackboard')) {
+              die('Could not open database eblackboard ' . mysql_error());
+            }
+            echo ' eblackboard is successfully connected ';
+            /*$this->open('test.db');
+            echo "test.db opened<br />";*/
+         }
+         
+         function __destruct() {
+          mysql_close($this -> link); 
          }
          
 // THE CREATE TABLE FUNCTION
@@ -29,15 +44,12 @@ EOF;
 // THE ADD DATA FUNCTION
       function add_data()
       {
-        
-            $sql =<<<EOF
-              INSERT INTO LECTURENOTES (PATH,DATE,COURSE)
-              VALUES ('../img/2014-02-26.1.png', '2014-02-26', 'TDA517');
-EOF;
+        $sql = "INSERT INTO LectureNotes VALUES ('../img/2014-02-26.2.png', '2014-03-05', 'TDA517')";
           
-          $ret = $this->exec($sql);
+          
+          $ret = mysql_query($this -> link, $sql);
           if(!$ret){
-            echo $this->lastErrorMsg() . " errormsg when inserting data";
+            echo mysql_error() . " errormsg when inserting data";
           } else {
             echo "Records created successfully<br />";
           }
