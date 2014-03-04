@@ -8,7 +8,7 @@
         include ('database.php');
         $database = new MyDb();
         //$database ->create_table();
-	    $database ->add_data();
+	//$database ->add_data();
         echo "test";
 	echo '<br />';
         $database ->show_data();

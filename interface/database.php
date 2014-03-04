@@ -5,28 +5,24 @@
 
          function __construct()
          {
-            $this -> link = mysql_connect('localhost', 'tomas', 'abc');
+            $this -> link = mysqli_connect('localhost', 'tomas', 'abc', 'eblackboard');
             if (!($this -> link)) {
-              die('Could not open database ' . mysql_error());
+              die('Could not open database ' . mysqli_error());
             }
             echo 'Connected successfully ';
-            if (!mysql_select_db('eblackboard')) {
-              die('Could not open database eblackboard ' . mysql_error());
-            }
-            echo ' eblackboard is successfully connected ';
             /*$this->open('test.db');
             echo "test.db opened<br />";*/
          }
          
          function __destruct() {
-          mysql_close($this -> link); 
+          mysqli_close($this -> link); 
          }
          
 // THE CREATE TABLE FUNCTION
          function create_table()
          {
             $sql =<<<EOF
-              CREATE TABLE IF NOT EXISTS LECTURENOTES
+              CREATE TABLE IF NOT EXISTS LectureNotes
               (ID INTEGER PRIMARY KEY AUTOINCREMENT,
               PATH            TEXT      NOT NULL,
               DATE            TEXT  NOT NULL,
@@ -44,12 +40,12 @@ EOF;
 // THE ADD DATA FUNCTION
       function add_data()
       {
-        $sql = "INSERT INTO LectureNotes VALUES ('../img/2014-02-26.2.png', '2014-03-05', 'TDA517')";
+        $sql = "INSERT INTO LectureNotes VALUES (NULL, '../img/2014-02-26.2.png', '2014-03-05', 'TDA517')";
           
           
-          $ret = mysql_query($this -> link, $sql);
+          $ret = mysqli_query($sql);
           if(!$ret){
-            echo mysql_error() . " errormsg when inserting data";
+            echo mysqli_error() . " errormsg when inserting data";
           } else {
             echo "Records created successfully<br />";
           }
@@ -58,9 +54,9 @@ EOF;
 //THE SHOW DATA FUNCTION      
       function show_data()
       {
-        $sql ="SELECT * FROM LECTURENOTES";
-        $ret = $this->query($sql);
-        while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
+        $sql ="SELECT * FROM LectureNotes";
+        $ret = mysqli_query($this->link,$sql);
+        while($row = mysqli_fetch_array($ret)){
           echo "ID = ". $row['ID'] . "<br />";
           echo "PATH = ". $row['PATH'] ."<br />";
           echo "DATE = ". $row['DATE'] ."<br />";
@@ -72,7 +68,7 @@ EOF;
 //COUNT DATABASE ENTRIES
       function count_entries($course)
       {
-      	$sql = "SELECT COUNT(*) as count FROM LECTURENOTES WHERE COURSE = '".$course."'";
+      	$sql = "SELECT COUNT(*) as count FROM LectureNotes WHERE COURSE = '".$course."'";
       	$ret = $this->query($sql);
       	$row = $ret->fetchArray(SQLITE3_ASSOC);
         return $row['count'];
@@ -81,7 +77,7 @@ EOF;
 //GET DATE FUNCTION
       function get_date($course)
       {
-        $sql ="SELECT DATE as date FROM LECTURENOTES WHERE COURSE = '".$course."'";
+        $sql ="SELECT DATE as date FROM LectureNotes WHERE COURSE = '".$course."'";
         $ret = $this->query($sql);
         $i = 0;
         $res = [];
@@ -95,7 +91,7 @@ EOF;
 //GET PATH FUNCTION
       function get_path($course, $date)
       {
-        $sql ="SELECT PATH as path FROM LECTURENOTES WHERE COURSE = '".$course."' AND DATE ='".$date."'";
+        $sql ="SELECT PATH as path FROM LectureNotes WHERE COURSE = '".$course."' AND DATE ='".$date."'";
         $ret = $this->query($sql);
         $i = 0;
         $res = [];
