@@ -5,7 +5,7 @@
     </head>
     <body>
         <?php 
-        include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/navigation.php";
+        include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/webinterface/navigation.php";
         include ('database.php');
         
         $database = new MyDb();

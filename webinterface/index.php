@@ -6,9 +6,9 @@
 
     <body>
     <!-- special case since we use Mamp-->    
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/navigation.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/webinterface/navigation.php"; ?>
     
-    <form action="/eBlackboard/interface/course.php" method="get">
+    <form action="/eBlackboard/webinterface/interface/course.php" method="get">
         <select name="course">
             <option value="TDA517">TDA517</option>
             <option value="saab">Saab</option>
