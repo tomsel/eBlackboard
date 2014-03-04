@@ -4,16 +4,17 @@
         
     </head>
     <body>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/navigation.php"; ?>
-        
         <?php 
+        include $_SERVER['DOCUMENT_ROOT'] . "/eBlackboard/navigation.php";
         include ('database.php');
-		echo "database.php is included<br />";
+        
         $database = new MyDb();
 	echo '<br />';
         
-        $pictures=$database->get_path($_GET["course"], $_GET["date"]);
-	foreach($pictures as $path){
+        //These lines will pull the paths for the images associated with a class and a date and
+        //present them to the user.
+        $picture_paths=$database->get_path($_GET["course"], $_GET["date"]);
+	foreach($picture_paths as $path){
 		echo '<img src="'.$path.'">';
 	}
       	?>
