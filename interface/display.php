@@ -16,7 +16,6 @@
 	foreach($pictures as $path){
 		echo '<img src="'.$path.'">';
 	}
-	$database ->close()
       	?>
     </body>
 </html>
