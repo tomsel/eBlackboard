@@ -7,7 +7,10 @@
 //Used here to establish a connection with our MySQL database.
          function __construct()
          {
-            $this -> link = mysqli_connect('localhost', 'tomas', 'abc', 'eblackboard');
+            /*Use this if you want to run local server XAMP or MAMP
+            $this -> link = mysqli_connect('localhost', 'tomas', 'abc', 'eblackboard');*/
+            //Use this if you want to run at the webhotel binero
+            $this -> link = mysqli_connect('eblackboard-193040.mysql.binero.se', '193040_vn74392', 'u55MZngO4Z', '193040-eblackboard');
             if (!($this -> link)) {
               die('Could not open database ' . mysqli_error());
             }
@@ -27,7 +30,7 @@
       {
         $sql = "INSERT INTO LectureNotes VALUES (NULL, '../img/2014-02-26.2.png', '2014-03-05', 'TDA517')";
           
-          $ret = mysqli_query($this->link,$sql);
+          $ret = mysqli_query($this -> link, $sql); 
           if(!$ret){
             echo mysqli_error() . " errormsg when inserting data";
           } else {
@@ -41,7 +44,7 @@
       function show_data()
       {
         $sql ="SELECT * FROM LectureNotes";
-        $ret = mysqli_query($this->link,$sql);
+        $ret = mysqli_query($this-> link,$sql);
         while($row = mysqli_fetch_array($ret)){
           echo "ID = ". $row['ID'] . "<br />";
           echo "PATH = ". $row['PATH'] ."<br />";
@@ -56,7 +59,7 @@
       function count_entries($course)
       {
       	$sql = "SELECT COUNT(*) as count FROM LectureNotes WHERE COURSE = '".$course."'";
-      	$ret = mysqli_query($this->link,$sql);
+      	$ret = mysqli_query($this-> link,$sql);
       	$row = mysqli_fetch_array($ret);
         return $row['count'];
       }
@@ -67,9 +70,9 @@
       function get_date($course)
       {
         $sql ="SELECT DATE as date FROM LectureNotes WHERE COURSE = '".$course."'";
-        $ret = mysqli_query($this->link,$sql);
+        $ret = mysqli_query($this-> link,$sql);
         $i = 0;
-        $res = [];
+        $res = array();
         while($row = mysqli_fetch_array($ret)){
           $res [$i] = $row['date'];
           $i++;
@@ -85,7 +88,7 @@
         $sql ="SELECT PATH as path FROM LectureNotes WHERE COURSE = '".$course."' AND DATE ='".$date."'";
         $ret = mysqli_query($this->link,$sql);
         $i = 0;
-        $res = [];
+        $res = array();
         while($row = mysqli_fetch_array($ret)){
           $res [$i] = $row['path'];
           $i++;

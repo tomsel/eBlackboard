@@ -9,7 +9,8 @@
         include ('database.php');
         
         $database = new MyDb();
-        
+        //If you want to add new data to database delete the '//' on next line!
+        //$database -> add_data();
         //the next couple of lines simply output a bunch of links pointing to a page which will display pictures associated with a certain
         //class and a certain date. The link text is the date when a lecture took place.
         $lecture_count=$database->count_entries($_GET["course"]);

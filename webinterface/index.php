@@ -15,7 +15,7 @@
             <option value="DAT076">Mercedes</option>
             <option value="audi">Audi</option>
         </select>
-        <input type="submit" value="sbba">
+        <input type="submit" value="submit">
     </form>
 
             <!--div class="btn-group">
