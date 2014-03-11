@@ -17,6 +17,3 @@ def insertdata(PATH, DATE, COURSE):
 	if con:
 		con.close()
 		print ('connection closed')
-
-		
-insertdata('/img/2014-03-04.2.png', '2014-03-04', 'TDA516')

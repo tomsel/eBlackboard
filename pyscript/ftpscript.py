@@ -1,6 +1,9 @@
 import ftplib 
-session = ftplib.FTP('localhost','simon','linser') 
-file = open('imgsrc/hello.png','rb') # file to send 
-session.storbinary('STOR eBlackboardDev/imgdest/hello.png', file) # send the file 
-file.close() # close file and FTP 
-session.quit()
+def upload(filename,course):
+	session = ftplib.FTP('195.74.38.22/','193040_master','eblackboard') 
+	file = open(filename,'rb') # file to send
+	#att implementera: skapa mapp om den inte finns 
+	session.storbinary('STOR /eblackboard.se/public_html/eBlackboard/webinterface/img/'+course+'/'+filename, file) # send the file 
+	file.close() # close file 
+	session.quit #close FTP
+
