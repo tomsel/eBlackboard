@@ -14,7 +14,7 @@ GPIO.setup(25, GPIO.OUT)	#BLA
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True)
 imgcounter = 0 #nollas aldrig i programmet
 date = '2014-03-11' #ska fungera automatiskt i framtiden
-imgpath='/eblackboard.se/public_html/eBlackboard/webinterface/img/'
+imgpath='/eblackboard.se/public_html/img/'
 course='TDA514' #ska fungera automatiskt i framtiden
 
 try:
