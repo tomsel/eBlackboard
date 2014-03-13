@@ -4,8 +4,10 @@ import os
 import sys
 #import RPi.GPIO as GPIO
 import Image
+from datetime import date
 from ftpscript import upload
 from mysqlcon import insertdata
+from download import get_course
 
 #GPIO.setmode(GPIO.BCM)
 #GPIO.setup(22, GPIO.IN)		#LILA
@@ -15,9 +17,9 @@ from mysqlcon import insertdata
 
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True)
 imgcounter = 0 #nollas aldrig i programmet
-date = '2014-03-11' #ska fungera automatiskt i framtiden
+date = date.today()
 imgpath='/eblackboard.se/public_html/img/'
-course='TDA514' #ska fungera automatiskt i framtiden
+course=get_course("EA") 
 
 try:
 	while True:
