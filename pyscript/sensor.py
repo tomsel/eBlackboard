@@ -16,8 +16,7 @@ from download import get_course
 #GPIO.setup(25, GPIO.OUT)	#BLA
 
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True)
-imgcounter = 0 #nollas aldrig i programmet
-date = date.today()
+datestamp = date.today()
 imgpath='/eblackboard.se/public_html/img/'
 course=get_course("EA") 
 
@@ -27,8 +26,8 @@ try:
 			time.sleep(3)
 			#GPIO.output(24, True)
 			#ta bild
-			imgcounter+=1
-			filename=date+'.'+str(imgcounter)+'.jpg'
+			timestamp = time.strftime("%H:%M:%S", time.gmtime())
+			filename=datestamp+'.'+timestamp+'.jpg'
 			os.system('raspistill -o '+filename)
 			time.sleep(9)
 
@@ -41,7 +40,7 @@ try:
 			upload(filename,course)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, date, course)
+			insertdata('../img/'+course+'/'+filename, datestamp, course)
 			
 			#while GPIO.input(17) == False:
 		       	#	count = 1
@@ -51,8 +50,8 @@ try:
 			time.sleep(3) 
 			#GPIO.output(25, True)
 			#ta bild
-			imgcounter+=1
-			filename=date+'.'+str(imgcounter)+'.jpg'
+			timestamp = time.strftime("%H:%M:%S", time.gmtime())
+			filename=datestamp+'.'+timestamp+'.jpg'
 			os.system('raspistill -o '+filename)
 			time.sleep(9)
 			
@@ -65,7 +64,7 @@ try:
 			upload(filename,course)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata(imgpath+course+'/'+filename, date, course)
+			insertdata('../img/'+course+'/'+filename, datestamp, course)
 		
 	    		#while GPIO.input(22) == False:
 	    		#count = 2

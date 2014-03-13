@@ -24,7 +24,7 @@ def get_course(ROOM):
 				summary = component.get('summary')
 				splitted = summary.split(",")
 				if splitted[0]==ROOM:
-					return "not a course"
+					return "EXCPT-1"
 				else:
 					return splitted[0]
 					
