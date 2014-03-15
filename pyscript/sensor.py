@@ -20,6 +20,9 @@ datestamp = date.today()
 imgpath='/eblackboard.se/public_html/img/'
 course=get_course("EA") 
 
+os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
+upload('..', 'IP.txt')
+
 try:
 	while True:
 		if raw_input("waiting for input"):
@@ -27,8 +30,9 @@ try:
 			#GPIO.output(24, True)
 			#ta bild
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
-			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('raspistill -o '+filename)
+			filename="logo.png"
+			#filename=datestamp+'.'+timestamp+'.jpg'
+			#os.system('raspistill -o '+filename)
 			time.sleep(9)
 
 			#input_img=Image.open("image.jpg")
