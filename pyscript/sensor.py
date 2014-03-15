@@ -1,4 +1,5 @@
 import subprocess
+import signal
 import time
 import os
 import sys
@@ -15,13 +16,14 @@ from download import get_course
 #GPIO.setup(24, GPIO.OUT)	#ROD
 #GPIO.setup(25, GPIO.OUT)	#BLA
 
-tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True)
-datestamp = date.today()
+tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True, preexec_fn=os.setsid)
+datestamp = date.today().isoformat()
 imgpath='/eblackboard.se/public_html/img/'
-course=get_course("EA") 
-
+#course=get_course("EA") 
+course="TDA514"
 os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
 upload('IP.txt','..')
+os.system("rm IP.txt")
 
 try:
 	while True:
@@ -75,6 +77,6 @@ try:
 			#GPIO.output(25, False)  
 			
 except KeyboardInterrupt:
-	tunnel.terminate()
+	os.killpg(tunnel.pid, signal.SIGTERM)
 	print("Process terminated")
 	sys.exit(0)
