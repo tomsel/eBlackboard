@@ -21,7 +21,7 @@ imgpath='/eblackboard.se/public_html/img/'
 course=get_course("EA") 
 
 os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
-upload('..', 'IP.txt')
+upload('IP.txt','..')
 
 try:
 	while True:
