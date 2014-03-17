@@ -27,7 +27,7 @@ os.system("rm IP.txt")
 
 try:
 	while True:
-		if raw_input("waiting for input"):
+		if GPIO.input(23)==false:
 			#time.sleep(3)
 			#GPIO.output(24, True)
 			#ta bild
@@ -47,32 +47,32 @@ try:
 			#pupulera databas
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 			
-			#while GPIO.input(17) == False:
-		       	#	count = 1
+			while GPIO.input(23) == False:
+		       		count = 1
 	   		#GPIO.output(24, False)
 
-	   	if False:
-			time.sleep(3) 
-			#GPIO.output(25, True)
+	   	if GPIO.input(22) == False:
+			#time.sleep(3)
+			#GPIO.output(24, True)
 			#ta bild
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('raspistill -o '+filename)
-			time.sleep(9)
+			os.system('raspistill -o '+'image.jpg')
+			#time.sleep(9)
+
+			input_img=Image.open("image.jpg")
+			box= (300, 300, 1300, 1000)
+			output_img = input_img.crop(box)
+			output_img.save(filename)
 			
-			#input_img=Image.open("image.jpg")
-			#box= (300, 300, 1300, 1000)
-			#output_img = input_img.crop(box)
-			#output_img.save("croppedimg.jpg")
-		
 			#ladda upp bild till ftp
 			upload(filename,course)
 			#ladda hem ics och ta fram data
 			#pupulera databas
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 		
-	    		#while GPIO.input(22) == False:
-	    		#count = 2
+	    	while GPIO.input(22) == False:
+	    		count = 2
 			#GPIO.output(25, False)  
 			
 except KeyboardInterrupt:
