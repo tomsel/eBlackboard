@@ -69,7 +69,7 @@
 //the course matches the input variable.
       function get_date($course)
       {
-        $sql ="SELECT DATE as date FROM LectureNotes WHERE COURSE = '".$course."'";
+        $sql ="SELECT DATE as date FROM LectureNotes WHERE COURSE = '".$course."' GROUP BY DATE";
         $ret = mysqli_query($this-> link,$sql);
         $i = 0;
         $res = array();
@@ -80,6 +80,19 @@
         return $res;
       }
 
+      function get_Courses()
+      {
+        $sql = "SELECT COURSE as course FROM LectureNotes GROUP BY COURSE ORDER BY COURSE";
+        $ret = mysqli_query($this-> link,$sql);
+        $i = 0;
+        $res = array();
+        while($row = mysqli_fetch_array($ret)){
+          $res [$i] = $row['course'];
+          $i++;
+        }
+        return $res;
+
+      }
 //GET PATH FUNCTION
 //A function to return an array of paths to pictures associated with a certain
 //course and a certain date.
