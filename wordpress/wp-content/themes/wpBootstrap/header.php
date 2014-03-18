@@ -16,7 +16,7 @@
 
     <body>
 
-
+<!--11,22-->
 
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -28,11 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">E-Blackboard</a>
+                <a class="navbar-brand" href="http://eblackboard.se.preview.binero.se/wordpress/">E-Blackboard</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php wp_list_pages(array('title_li' => '')); ?>
+                    <?php wp_list_pages('include=11,22,18&title_li='); ?>
                 </ul>    
             </div>
     </nav>
