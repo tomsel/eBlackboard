@@ -19,8 +19,8 @@ GPIO.setup(25, GPIO.OUT)	#BLA"""
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True, preexec_fn=os.setsid)
 datestamp = datetime.date.today().isoformat()
 imgpath='/eblackboard.se/public_html/img/'
-#course=get_course("EA") 
-course="TEST"
+course=get_course("EA")
+#course="TEST"
 #os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
 #upload('/eblackboard.se/','public_html','IP.txt')
 #os.system("rm IP.txt")
