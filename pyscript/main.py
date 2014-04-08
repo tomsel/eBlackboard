@@ -8,7 +8,7 @@ import sys
 import datetime
 from ftpupload import upload
 from mysqlcon import insertdata
-from metadata import get_course
+from metadata import get_course2 as get_course
 
 """GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.IN)		#LILA
@@ -19,10 +19,10 @@ GPIO.setup(25, GPIO.OUT)	#BLA"""
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True, preexec_fn=os.setsid)
 datestamp = datetime.date.today().isoformat()
 imgpath='/eblackboard.se/public_html/img/'
-#course=get_course("EA")
-course="TEK016"
-#TODO: THIS VVV
-coursename='placeholder'
+course=get_course("EA")
+course_code=course[0]
+course_name=course[1]
+#course="TEK016"
 #os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
 #upload('/eblackboard.se/','public_html','IP.txt')
 #os.system("rm IP.txt")
@@ -46,11 +46,13 @@ try:
 			#output_img.save(filename)
 			
 			#ladda upp bild till ftp
-			upload(imgpath,course,filename)
+			upload(imgpath,course_code,filename)
 			os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course, coursename)
+			print course_code
+			print course_name
+			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 			
 			#while GPIO.input(23) == False:
 		    #   		count = 1
