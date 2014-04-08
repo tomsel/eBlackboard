@@ -18,3 +18,11 @@ This simple theme was built using the example Bootstrap theme "Basic marketing s
 body { 
    
 }
+
+.viewer { 
+	height: 750px;
+	width: 750px;
+	position: relative;
+	left: 20%;
+}
+    

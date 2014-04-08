@@ -23,27 +23,12 @@
           mysqli_close($this -> link); 
           echo "Database connection closed";
          }
-
-//THE ADD DATA FUNCTION
-//Function to add dummy data to the database for development.
-      function add_data()
-      {
-        $sql = "INSERT INTO LectureNotes VALUES (NULL, '../img/2014-02-26.2.png', '2014-03-05', 'TDA517')";
-          
-          $ret = mysqli_query($this -> link, $sql); 
-          if(!$ret){
-            echo mysqli_error() . " errormsg when inserting data";
-          } else {
-            echo "Records created successfully<br />";
-          }
-        }
-
 //THE SHOW DATA FUNCTION
 //Retrieve all the data from the table in the database.
 //Used for development purpouses.
       function show_data()
       {
-        $sql ="SELECT * FROM LectureNotes";
+        $sql ="SELECT * FROM Images";
         $ret = mysqli_query($this-> link,$sql);
         while($row = mysqli_fetch_array($ret)){
           echo "ID = ". $row['ID'] . "<br />";
@@ -58,7 +43,7 @@
 //the course matches the input variable.
       function count_entries($course)
       {
-      	$sql = "SELECT COUNT(*) as count FROM LectureNotes WHERE COURSE = '".$course."'";
+      	$sql = "SELECT COUNT(*) as count FROM Images WHERE COURSE = '".$course."'";
       	$ret = mysqli_query($this-> link,$sql);
       	$row = mysqli_fetch_array($ret);
         return $row['count'];
@@ -69,7 +54,7 @@
 //the course matches the input variable.
       function get_date($course)
       {
-        $sql ="SELECT DATE as date FROM LectureNotes WHERE COURSE = '".$course."' GROUP BY DATE";
+        $sql ="SELECT DATE as date FROM Images WHERE COURSE = '".$course."' GROUP BY DATE";
         $ret = mysqli_query($this-> link,$sql);
         $i = 0;
         $res = array();
@@ -82,7 +67,7 @@
 
       function get_Courses()
       {
-        $sql = "SELECT COURSE as course FROM LectureNotes GROUP BY COURSE ORDER BY COURSE";
+        $sql = "SELECT COURSE as course FROM Images GROUP BY COURSE ORDER BY COURSE";
         $ret = mysqli_query($this-> link,$sql);
         $i = 0;
         $res = array();
@@ -98,7 +83,7 @@
 //course and a certain date.
       function get_path($course, $date)
       {
-        $sql ="SELECT PATH as path FROM LectureNotes WHERE COURSE = '".$course."' AND DATE ='".$date."'";
+        $sql ="SELECT PATH as path FROM Images WHERE COURSE = '".$course."' AND DATE ='".$date."'";
         $ret = mysqli_query($this->link,$sql);
         $i = 0;
         $res = array();

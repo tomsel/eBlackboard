@@ -5,10 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Eblackboar</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
          <!--script type="text/javascript" src="/library/jquery-1.11.0.js"></script-->
         <!-- Bootstrap -->
-        <!--link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <script type="text/javascript" src="js/bootstrap.min.js"></script-->
+        <!--link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
+        
         <link href="<?php bloginfo('stylesheet_url');?>" rel="stylesheet">  
         <?php wp_enqueue_script("jquery"); ?>
         <?php wp_head(); ?>  
@@ -28,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://eblackboard.se.preview.binero.se/wordpress/">E-Blackboard</a>
+                <a class="navbar-brand" href="http://eblackboard.se/">E-Blackboard</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
