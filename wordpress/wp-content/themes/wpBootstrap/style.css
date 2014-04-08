@@ -25,4 +25,20 @@ body {
 	position: relative;
 	left: 20%;
 }
+.list-group {
+	max-width: 400px;
+}
+
+.list-group-item {
+	left: 100%;
+}
+
+.label {
+	position: relative;
+	left: 44%;
+}
+
+.label-black {
+	background-color: black;
+}
     

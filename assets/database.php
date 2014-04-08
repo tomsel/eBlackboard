@@ -14,14 +14,12 @@
             if (!($this -> link)) {
               die('Could not open database ' . mysqli_error());
             }
-            echo 'Connected successfully ';
          }
          
 //Also a "magic" PHP function. This one is called as soon as the object is destroyed.
 //All objects created by PHP code is destroyed once the end of the PHP code is reached.
          function __destruct() {
           mysqli_close($this -> link); 
-          echo "Database connection closed";
          }
 //THE SHOW DATA FUNCTION
 //Retrieve all the data from the table in the database.
