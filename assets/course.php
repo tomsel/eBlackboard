@@ -16,7 +16,7 @@
         $year = $tmp[0];
         $month = $tmp[1];
 
-        print '<H4><span class="label label-black">'.$monthArray[intval($tmp[1])].' '.$tmp[0].'</span></H4></br>';
+        print '<H4><span class="label label-black">'.$monthArray[intval($tmp[1])].' '.$tmp[0].'</span></H4>';
         for($i=0; $i<$date_count; $i++){
                 $date = explode('-', $lecture_date[$i]);
                 if ($year <= $date[0]) {
@@ -29,7 +29,7 @@
         //print '<ul class="nav nav-pills nav-stacked">';        
         //print '<li><a href="/?page_id=97&course='.$_GET["course"].'&date='.$lecture_date[$i].'">'.$lecture_date[$i].'</a></li>';                
             print '<div class="list-group">'; 
-            print '<a href="/?page_id=97&course='.$_GET["course"].'&date='.$lecture_date[$i].'" class="list-group-item">'.$lecture_date[$i].'</a>';
+            print '<a href="/display/?course='.$_GET["course"].'&date='.$lecture_date[$i].'" class="list-group-item">'.$lecture_date[$i].'</a>';
         }
         function changeVariable($date, $year, $month) 
         {       
@@ -38,7 +38,7 @@
                 5=> 'Maj', 6=> 'Juni', 7=> 'Juli', 8=> 'Augusti', 9=> 'September', 
                 10=> 'Oktober', 11=> 'November', 12=> 'December');
                 print '</div>';
-                print '<H4><span class="label label-black">'.$monthArray[intval($tmp[1])].' '.$tmp[0].'</span></H4></br>';
+                print '<H4><span class="label label-black">'.$monthArray[intval($tmp[1])].' '.$tmp[0].'</span></H4>';
                 $year = $date[0];
                 $month = $date[1];        
         }
