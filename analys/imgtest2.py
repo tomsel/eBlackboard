@@ -5,7 +5,7 @@ from crophelp import getKey
 from crophelp import crop1
 img = Image("realtest2.jpg")
 color_blue = img.colorDistance(color =(56, 121, 31))
-onlyblue=color_blue.binarize(40)
+onlyblue=color_blue.binarize(31)
 blobs=onlyblue.findBlobs()
 blobs.draw()
 #markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 )
@@ -14,6 +14,7 @@ sortedcor=countingcoordinates(blobs)
 print(sortedcor)
 if sortedcor!="false":
     img=crop1(img, sortedcor)
+    onlyblue.show()
     img.save("croppic.jpg")
 else:
     print("falseee")

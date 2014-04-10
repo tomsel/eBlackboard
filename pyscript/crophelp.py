@@ -20,7 +20,7 @@ def crop1(img, sortedcor):
 
 def findingblobs(img):
     color_blue = img.colorDistance(color=(56, 121, 31))
-    onlyblue=color_blue.binarize(40)
+    onlyblue=color_blue.binarize(31)
     
     blobs=onlyblue.findBlobs()
     sortedcor=countingcoordinates(blobs)
