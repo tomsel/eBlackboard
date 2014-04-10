@@ -25,17 +25,17 @@ GPIO.setup(18, GPIO.OUT)	#PulsModdare Motor
 tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True, preexec_fn=os.setsid)
 datestamp = datetime.date.today().isoformat()
 imgpath='/eblackboard.se/public_html/img/'
-course=get_course("EA")
+#course=get_course("EA")
+course=["tst010", "test 10 april"]
 course_code=course[0]
 course_name=course[1]
-#course="TEK016"
-#os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
-#upload('/eblackboard.se/','public_html','IP.txt')
-#os.system("rm IP.txt")
+os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
+upload('/eblackboard.se/','public_html','IP.txt')
+os.system("rm IP.txt")
 
 try:
 	while True:
-		if raw_input("Waiting for input..."):
+		#if raw_input("Waiting for input"):
 
 		if GPIO.input(4) == False:
 			print('4')
@@ -47,11 +47,11 @@ try:
 				time.sleep(0.5)
 			time.sleep(2)
 			GPIO.output(9, True)
-			time.sleep(5) #Remove
+			#time.sleep(5) #Remove
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('cp sample.jpg '+filename)
+			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
 	
 			cropping_fram(filename)
@@ -64,7 +64,7 @@ try:
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 
 			GPIO.output(10, False)
-			time.sleep(3)
+			#time.sleep(3)
 			GPIO.output(9, False)
 
 		if GPIO.input(17) == False:
