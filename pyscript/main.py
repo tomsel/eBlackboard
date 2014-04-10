@@ -57,11 +57,11 @@ try:
 			cropping_fram(filename)
 
 			#ladda upp bild till ftp
-			upload(filename,course)
+			upload(imgpath,course_code,filename)
 			os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course)
+			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 
 			GPIO.output(10, False)
 			#time.sleep(3)
@@ -87,11 +87,11 @@ try:
 			cropping_bak(filename)
 
 			#ladda upp bild till ftp
-			upload(filename,course)
+			upload(imgpath,course_code,filename)
 			os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course)
+			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 
 			GPIO.output(10, False)
 			#time.sleep(3)
@@ -117,11 +117,11 @@ try:
 			cropping_fram(filename)
 
 			#ladda upp bild till ftp
-			upload(filename,course)
+			upload(imgpath,course_code,filename)
 			os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course)
+			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 
 			GPIO.output(10, False)
 			#time.sleep(3)
@@ -148,11 +148,11 @@ try:
 			cropping_bak(filename)
 
 			#ladda upp bild till ftp
-			upload(filename,course)
+			upload(imgpath,course_code,filename)
 			os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course)
+			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 
 			GPIO.output(10, False)
 			#time.sleep(3)
