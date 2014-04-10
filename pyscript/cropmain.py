@@ -18,7 +18,7 @@ def cropping_fram(filename):
         
         #WHAT WILL HAPPEN IF BOARD IS BLOCKED
     else:
-        return(img)
+        img.save(filename)
 #    img=os.system('raspistill -o '+"newpct.jpg")
 #    findingblobs(img)
 
@@ -36,7 +36,7 @@ def cropping_bak(filename):
         
         #WHAT WILL HAPPEN IF BOARD IS BLOCKED
     else:
-        return(img)
+        img.save(filename)
 
     
     #Rader som tar en ny bild efter en stunds sleep
