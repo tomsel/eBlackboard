@@ -3,7 +3,8 @@ def getKey(item):
     return item[0]
 
 def countingcoordinates(blobs):
-    markers=list(marker for marker in blobs if abs(700-marker.area())<1200 )
+    markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 )
+    #print(len(markers))
     if len(markers) == 2:
         coordinates=[]
         for marker in markers:
@@ -18,9 +19,9 @@ def crop1(img, sortedcor):
     return(img)
 
 def findingblobs(img):
-    color_blue = img.colorDistance(color = (0, 0, 255))
-    onlyblue=img-color_blue
-
+    color_blue = img.colorDistance(color=(56, 121, 31))
+    onlyblue=color_blue.binarize(40)
+    
     blobs=onlyblue.findBlobs()
     sortedcor=countingcoordinates(blobs)
     if sortedcor!="false":
