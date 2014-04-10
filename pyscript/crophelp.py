@@ -31,8 +31,8 @@ def findingblobs(img):
         return("false")
     
 def findingblobsbak(img):
-    color_blue = img.colorDistance(color = (0, 255, 0))
-    onlyblue=img-color_blue
+    color_blue = img.colorDistance(color = (255, 0, 0))
+    onlyblue=color_blue.binarize(40)
 
     blobs=onlyblue.findBlobs()
     sortedcor=countingcoordinates(blobs)
