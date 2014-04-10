@@ -1,7 +1,7 @@
 
 
 from SimpleCV import *
-from countingcoordinates import *
+from crophelp import *
 import time
 import os
 def cropping(filename):
@@ -15,6 +15,7 @@ def cropping(filename):
     #print (countingcoordinates(blobs))
     img=findingblobs(img)
     if img == "false":
+        
         #WHAT WILL HAPPEN IF BOARD IS BLOCKED
     else:
         return(img)
