@@ -29,3 +29,14 @@ def findingblobs(img):
     else:
         return("false")
     
+def findingblobsbak(img):
+    color_blue = img.colorDistance(color = (0, 255, 0))
+    onlyblue=img-color_blue
+
+    blobs=onlyblue.findBlobs()
+    sortedcor=countingcoordinates(blobs)
+    if sortedcor!="false":
+        crop1(img, sortedcor)
+        return(img)
+    else:
+        return("false")

@@ -4,9 +4,9 @@ from SimpleCV import *
 from crophelp import *
 import time
 import os
-def cropping(filename):
-    #img = Image(filename)
-    img = Image("testmark.jpg")
+def cropping_fram(filename):
+    img = Image(filename)
+    #img = Image("testmark.jpg")
 #corners=[(0,0),(2992, -900),(3500,2044),(250,1944)]
 #straight=img.warp(corners)
 #img=straight
@@ -27,3 +27,16 @@ def cropping(filename):
     
 
 
+def cropping_bak(filename):
+    img = Image(filename)
+
+
+    img=findingblobsbak(img)
+    if img == "false":
+        
+        #WHAT WILL HAPPEN IF BOARD IS BLOCKED
+    else:
+        return(img)
+
+    
+    #Rader som tar en ny bild efter en stunds sleep
