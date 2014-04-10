@@ -15,7 +15,7 @@ def cropping_fram(filename):
     #print (countingcoordinates(blobs))
     img=findingblobs(img)
     if img == "false":
-        
+        foo=0
         #WHAT WILL HAPPEN IF BOARD IS BLOCKED
     else:
         img.save(filename)
@@ -33,7 +33,7 @@ def cropping_bak(filename):
 
     img=findingblobsbak(img)
     if img == "false":
-        
+        foo=0
         #WHAT WILL HAPPEN IF BOARD IS BLOCKED
     else:
         img.save(filename)

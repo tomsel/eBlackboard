@@ -3,8 +3,8 @@ import signal
 import time
 import os
 import sys
-#import RPi.GPIO as GPIO
-#import Image
+import RPi.GPIO as GPIO
+import Image
 import datetime
 from ftpupload import upload
 from mysqlcon import insertdata
