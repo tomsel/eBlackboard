@@ -45,7 +45,7 @@ try:
 				time.sleep(0.0012)
 				GPIO.output(18, False)
 				time.sleep(0.5)
-			time.sleep(2)
+			#time.sleep(2)
 			GPIO.output(9, True)
 			#time.sleep(5) #Remove
 			
@@ -75,13 +75,13 @@ try:
 				time.sleep(0.0012)
 				GPIO.output(18, False)
 				time.sleep(0.5)
-			time.sleep(2)
+			#time.sleep(2)
 			GPIO.output(9, True)
-			time.sleep(5) #Remove
+			#time.sleep(5) #Remove
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('cp sample.jpg '+filename)
+			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
 	
 			cropping_bak(filename)
@@ -94,7 +94,7 @@ try:
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 
 			GPIO.output(10, False)
-			time.sleep(3)
+			#time.sleep(3)
 			GPIO.output(9, False)
 
 		if GPIO.input(22) == False:
@@ -105,13 +105,13 @@ try:
 				time.sleep(0.0017)
 				GPIO.output(18, False)
 				time.sleep(0.5)
-			time.sleep(2)
+			#time.sleep(2)
 			GPIO.output(9, True)
-			time.sleep(5) #Remove
+			#time.sleep(5) #Remove
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('cp sample.jpg '+filename)
+			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
 	
 			cropping_fram(filename)
@@ -124,7 +124,7 @@ try:
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 
 			GPIO.output(10, False)
-			time.sleep(3)
+			#time.sleep(3)
 			GPIO.output(9, False)
 
 
@@ -138,11 +138,11 @@ try:
 				time.sleep(0.5)
 			time.sleep(2)
 			GPIO.output(9, True)
-			time.sleep(5) #Remove
+			#time.sleep(5) #Remove
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('cp sample.jpg '+filename)
+			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
 	
 			cropping_bak(filename)
@@ -155,10 +155,15 @@ try:
 			insertdata('../img/'+course+'/'+filename, datestamp, course)
 
 			GPIO.output(10, False)
-			time.sleep(3)
+			#time.sleep(3)
 			GPIO.output(9, False)
 
 
+	
+
+
+except KeyboardInterrupt:
+	os.killpg(tunnel.pid, signal.SIGTERM)
 	GPIO.cleanup(4)
 	GPIO.cleanup(17)
 	GPIO.cleanup(22)
@@ -166,63 +171,5 @@ try:
 	GPIO.cleanup(10)
 	GPIO.cleanup(9)
 	GPIO.cleanup(18)
-
-
-		#if GPIO.input(23)==False:
-			#time.sleep(3)
-			#GPIO.output(24, True)
-			#ta bild
-			timestamp = time.strftime("%H:%M:%S", time.gmtime())
-			filename=datestamp+'.'+timestamp+'.jpg'
-			os.system('cp sample.jpg '+filename)
-			#os.system('raspistill -o '+filename)
-			#time.sleep(9)
-
-			#input_img=Image.open("image.jpg")
-			#box= (300, 300, 1300, 1000)
-			#output_img = input_img.crop(box)
-			#output_img.save(filename)
-			
-			#ladda upp bild till ftp
-			upload(imgpath,course_code,filename)
-			os.system("rm "+filename)
-			#ladda hem ics och ta fram data
-			#pupulera databas
-			print course_code
-			print course_name
-			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
-			
-			#while GPIO.input(23) == False:
-		    #   		count = 1
-	   		#GPIO.output(24, False)
-
-	   	#if False:
-	   	#if GPIO.input(22) == False:
-			#time.sleep(3)
-			#GPIO.output(24, True)
-			#ta bild
-			#timestamp = time.strftime("%H:%M:%S", time.gmtime())
-			#filename=datestamp+'.'+timestamp+'.jpg'
-			#os.system('raspistill -o '+filename)
-			#time.sleep(9)
-
-			#input_img=Image.open("image.jpg")
-			#box= (300, 300, 1300, 1000)
-			#output_img = input_img.crop(box)
-			#output_img.save(filename)
-			
-			#ladda upp bild till ftp
-			#upload(filename,course)
-			#os.system("rm "+filename)
-			#ladda hem ics och ta fram data
-			#pupulera databas
-			insertdata('../img/'+course+'/'+filename, datestamp, course)
-		
-	    	#while GPIO.input(22) == False:
-	    	#	count = 2
-			#GPIO.output(25, False)  
-			
-except KeyboardInterrupt:
-	os.killpg(tunnel.pid, signal.SIGTERM)
 	print("Process terminated")
 	sys.exit(0)
