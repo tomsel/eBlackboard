@@ -4,7 +4,7 @@ import time
 import os
 import sys
 import RPi.GPIO as GPIO
-import Image
+#import Image
 import datetime
 from ftpupload import upload
 from mysqlcon import insertdata
@@ -14,8 +14,8 @@ from cropmain import *
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.IN)		#Vanster
 GPIO.setup(17, GPIO.IN)		#Vanster
-GPIO.setup(22, GPIO.OUT)	#Hoger
-GPIO.setup(27, GPIO.OUT)	#Hoger
+GPIO.setup(22, GPIO.IN)	#Hoger
+GPIO.setup(27, GPIO.IN)	#Hoger
 
 GPIO.setup(9, GPIO.OUT)		#Gron Diod
 GPIO.setup(10, GPIO.OUT)	#Rod Diod
@@ -44,27 +44,26 @@ try:
 				GPIO.output(18, True)
 				time.sleep(0.0012)
 				GPIO.output(18, False)
-				time.sleep(0.5)
-			#time.sleep(2)
-			GPIO.output(9, True)
+				time.sleep(1)
+			time.sleep(2)
 			#time.sleep(5) #Remove
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
 			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
-	
+			GPIO.output(9, True)
 			cropping_fram(filename)
 
 			#ladda upp bild till ftp
 			upload(imgpath,course_code,filename)
-			os.system("rm "+filename)
+			#os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
 			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 
 			GPIO.output(10, False)
-			#time.sleep(3)
+			time.sleep(3)
 			GPIO.output(9, False)
 
 		if GPIO.input(17) == False:
@@ -75,20 +74,20 @@ try:
 				time.sleep(0.0012)
 				GPIO.output(18, False)
 				time.sleep(0.5)
-			#time.sleep(2)
-			GPIO.output(9, True)
-			#time.sleep(5) #Remove
+			time.sleep(2)
+
+			#time.sleep(5) #Remove 
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
 			#os.system('cp sample.jpg '+filename)
 			os.system('raspistill -o '+filename)
-	
+			GPIO.output(9, True)	
 			cropping_bak(filename)
 
 			#ladda upp bild till ftp
 			upload(imgpath,course_code,filename)
-			os.system("rm "+filename)
+			#os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
 			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
@@ -105,9 +104,9 @@ try:
 				time.sleep(0.0017)
 				GPIO.output(18, False)
 				time.sleep(0.5)
-			#time.sleep(2)
+			time.sleep(2)
 			GPIO.output(9, True)
-			#time.sleep(5) #Remove
+			#time.sleep(5) #Remove 
 			
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			filename=datestamp+'.'+timestamp+'.jpg'
@@ -118,7 +117,7 @@ try:
 
 			#ladda upp bild till ftp
 			upload(imgpath,course_code,filename)
-			os.system("rm "+filename)
+			#os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
 			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
@@ -149,7 +148,7 @@ try:
 
 			#ladda upp bild till ftp
 			upload(imgpath,course_code,filename)
-			os.system("rm "+filename)
+			#os.system("rm "+filename)
 			#ladda hem ics och ta fram data
 			#pupulera databas
 			insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
