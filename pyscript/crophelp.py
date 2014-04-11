@@ -12,6 +12,8 @@ def countingcoordinates(blobs):
         for marker in markers:
             coordinates.append(marker.coordinates())
         sortedcor=sorted(coordinates, key= getKey)
+        if(sortedcor[0][0]<sortedcor[0][1]):
+            return("false")
         return(sortedcor)
     else:
         return ("false")
