@@ -8,8 +8,8 @@ def cropping_fram(filename):
     img = Image(filename)
     print("image is in crop function")
     #img = Image("testmark.jpg")
-    corners=[(0,0),(3030, -800),(3600,2044),(250,1944)]
-    img=img.warp(corners)
+    #corners=[(0,0),(3030, -800),(3600,2044),(250,1944)]
+    #img=img.warp(corners)
     img.save("warped.jpg")
 
 

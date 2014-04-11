@@ -6,13 +6,14 @@ def countingcoordinates(blobs):
     if not blobs:
         return("false")
     markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 )
-    #print(len(markers))
+    print(len(markers))
     if len(markers) == 2:
         coordinates=[]
         for marker in markers:
             coordinates.append(marker.coordinates())
         sortedcor=sorted(coordinates, key= getKey)
-        if(sortedcor[0][0]<sortedcor[0][1]):
+        if(sortedcor[0][0]>sortedcor[1][1]):
+            print("fail!")
             return("false")
         return(sortedcor)
     else:
@@ -38,8 +39,8 @@ def findingblobs(img):
         return("false")
     
 def findingblobsbak(img):
-    color_blue = img.colorDistance(color = (255, 0, 0))
-    onlyblue=color_blue.binarize(60)
+    color_blue = img.colorDistance(color = (121, 32, 18))
+    onlyblue=color_blue.binarize(30)
 
     blobs=onlyblue.findBlobs()
     sortedcor=countingcoordinates(blobs)
