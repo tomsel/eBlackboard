@@ -22,7 +22,7 @@ def upload(path,directory,filename):
 		sftp = paramiko.SFTPClient.from_transport(transport)
 		
 		#create directory if it does not exist
-		sftp.chdir(path=path)
+		sftp.chdir(path)
 		dirlist=sftp.listdir('.')
 		count=0
 		for entry in dirlist:
@@ -35,7 +35,7 @@ def upload(path,directory,filename):
 			sftp.mkdir(directory)
 			
 		#save the file
-		sftp.put(filename, directory+'/test.jpg')
+		sftp.put(filename, directory+'/'+filename)
 		
 		#close the connection
 		transport.close()
