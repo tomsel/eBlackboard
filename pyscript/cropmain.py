@@ -26,10 +26,10 @@ def cropping_fram(filename,cnt):
             #add the function that takes a new picture here
             cropping_fram(filename,cnt)
         else:
-            imgcopy.save(filename+"2.jpg")
+            imgcopy.save(filename)
 
     else:
-        img.save(filename+"2.jpg")
+        img.save(filename)
         print("image cropped and saved")
 #    img=os.system('raspistill -o '+"newpct.jpg")
 #    findingblobs(img)
@@ -59,11 +59,11 @@ def cropping_bak(filename,cnt):
             #add the function that takes a new picture here
             cropping_bak(filename,cnt)
         else:
-            imgcopy.save(filename+"2.jpg")
+            imgcopy.save(filename)
         #HOW TO CANCEL IF THE SENSOR IS ACTIVATED?? possible rebuild of the main program
         #mainprog()
     else:
-        img.save(filename+"2.jpg")
+        img.save(filename)
         print("image cropped and saved")
     
     #Rader som tar en ny bild efter en stunds sleep
