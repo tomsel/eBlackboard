@@ -23,7 +23,7 @@ def cropping_fram(filename,cnt):
         print("blackboard not found, repeating! ")
         time.sleep(1)
         if (cnt <5):
-            #add the function that takes a new picture here
+            os.system('raspistill -o '+filename)
             cropping_fram(filename,cnt)
         else:
             imgcopy.save(filename)
@@ -56,7 +56,7 @@ def cropping_bak(filename,cnt):
         print("blackboard not found, repeating! ")
         time.sleep(1)
         if (cnt <5):
-            #add the function that takes a new picture here
+            os.system('raspistill -o '+filename)
             cropping_bak(filename,cnt)
         else:
             imgcopy.save(filename)
