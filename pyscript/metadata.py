@@ -6,6 +6,35 @@ from HTMLParser import HTMLParser
 from icalendar import Calendar, Event
 from datetime import date, datetime, timedelta
 
+def get_course(ROOM):
+	currenttime = datetime.now(pytz.utc) 
+	#currenttime = datetime(2014, 4, 8, 9, 0, 0, 0, pytz.utc)
+	if not os.path.exists("schema.ics"):
+		download_schedule(ROOM)
+	elif time.time() - os.path.getmtime("schema.ics") > 1200:
+		download_schedule(ROOM)
+	filename = open('schema.ics','rb')
+	cal = Calendar.from_ical(filename.read())
+	for component in cal.walk():
+		if component.name == "VEVENT":
+			if component.get('DTSTART').dt < currenttime and component.get('DTEND').dt+timedelta(minutes=14) > currenttime: 
+				code = component.get('SUMMARY')
+				name = component.get('DESCRIPTION').split('\n', 1)[0]
+				if name.split(' ')[0] == 'ID' or len(code)>8:
+					return ["none", "none"]
+				else:
+					return [code, name]
+	
+	return "none"
+	filename.close()
+
+def download_schedule(ROOM):
+	if ROOM == 'EA':
+		#Subscription link for room EA
+		url = 'https://se.timeedit.net/web/chalmers/db1/public/ri667Q7QYo8ZQ4Q5c66Q3175yZZf50.ics'
+	urllib.urlretrieve (url, "schema.ics")
+
+"""
 #no longer used
 class MyHTMLParser(HTMLParser):
 	savecourse=0
@@ -28,11 +57,6 @@ class MyHTMLParser(HTMLParser):
 		if data=='Course id':
 			self.savecourse=1
 
-def download_schedule(ROOM):
-	if ROOM == 'EA':
-		#Subscription link for room EA
-		url = 'https://se.timeedit.net/web/chalmers/db1/public/ri667Q7QYo8ZQ4Q5c66Q3175yZZf50.ics'
-	urllib.urlretrieve (url, "schema.ics")
 
 #no longer used
 def get_course(ROOM):
@@ -77,24 +101,6 @@ def id_to_course(ID, ROOM):
 	parser.close()
 	
 	return course
+"""
 	
-def get_course2(ROOM):
-	#currenttime = datetime.now(pytz.utc) 
-	currenttime = datetime(2014, 4, 8, 9, 0, 0, 0, pytz.utc)
-	if time.time() - os.path.getmtime("schema.ics") > 1200:
-		download_schedule(ROOM)
-	filename = open('schema.ics','rb')
-	cal = Calendar.from_ical(filename.read())
-	for component in cal.walk():
-		if component.name == "VEVENT":
-			if component.get('DTSTART').dt < currenttime and component.get('DTEND').dt+timedelta(minutes=14) > currenttime: 
-				code = component.get('SUMMARY')
-				name = component.get('DESCRIPTION').split('\n', 1)[0]
-				if name == 'ID' or len(code)>8:
-					return "none"
-				else:
-					return [code, name]
-	
-	return "none"
-	filename.close()
 
