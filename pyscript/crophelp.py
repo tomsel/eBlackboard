@@ -5,7 +5,7 @@ def getKey(item):
 def countingcoordinates(blobs):
     if not blobs:
         return("false")
-    markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 )
+    markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 and marker.isCircle(0.35))
     print(len(markers))
     if len(markers) == 2:
         coordinates=[]
@@ -15,12 +15,13 @@ def countingcoordinates(blobs):
         if(sortedcor[0][0]>sortedcor[1][1]):
             print("fail!")
             return("false")
+        print(sortedcor)
         return(sortedcor)
     else:
         return ("false")
 def crop1(img, sortedcor):
     img2=img.crop(sortedcor[0][0],sortedcor[0][1],sortedcor[1][0]-sortedcor[0][0], sortedcor[1][1]-sortedcor[0][1])
-    img.save("nytavla.jpg")
+    #img.save("nytavla.jpg")
     return(img2)
 
 def findingblobs(img):
@@ -39,13 +40,15 @@ def findingblobs(img):
         return("false")
     
 def findingblobsbak(img):
-    color_blue = img.colorDistance(color = (121, 32, 18))
-    onlyblue=color_blue.binarize(30)
-
+    color_blue = img.colorDistance(color = (151, 35, 28))
+    color_blue.save("colordistance.jpg")
+    onlyblue=color_blue.binarize(40)
+    onlyblue.save("binarized.jpg")
     blobs=onlyblue.findBlobs()
     sortedcor=countingcoordinates(blobs)
     if sortedcor!="false":
-        crop1(img, sortedcor)
+        print("cropping!!!")
+        img=crop1(img, sortedcor)
         return(img)
     else:
         return("false")
