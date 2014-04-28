@@ -6,7 +6,7 @@ def getKey(item):
 def countingcoordinates(blobs):
     if not blobs:
         return("false")
-    markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 and marker.isCircle(0.65))
+    markers=list(marker for marker in blobs if abs(1500-marker.area())<1200 and marker.isCircle(0.35))
     print("MARKERS:")
     print(len(markers))
     if len(markers) == 2:
