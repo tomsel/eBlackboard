@@ -1,5 +1,5 @@
 from SimpleCV import *
 from cropmain import *
-img=("reddots.jpg")
+img=("aboard.jpg")
 
-img= cropping_bak(img,0)
+img= cropping_fram(img,0)

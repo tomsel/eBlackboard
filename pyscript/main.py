@@ -107,10 +107,10 @@ try:
 				#Check which sensor was triggered and crop the picture accordingly
 				if(poll==4 or poll==22):
 					print "fram"
-					#cropping_fram(filename)
+					#cropping_fram(filename, 0)
 				elif(poll==17 or poll==27):
 					print "bak"
-					#cropping_bak(filename)
+					#cropping_bak(filename, 0)
 
 				#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
 				upload(imgpath,course_code,filename)

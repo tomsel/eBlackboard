@@ -23,13 +23,13 @@ def cropping_fram(filename,cnt):
         print("blackboard not found, repeating! ")
         time.sleep(1)
         if (cnt <5):
-            #add the function that takes a new picture here
+            os.system('raspistill -o '+filename)
             cropping_fram(filename,cnt)
         else:
-            imgcopy.save(filename+"2.jpg")
+            imgcopy.save(filename)
 
     else:
-        img.save(filename+"2.jpg")
+        img.save(filename)
         print("image cropped and saved")
 #    img=os.system('raspistill -o '+"newpct.jpg")
 #    findingblobs(img)
@@ -56,14 +56,14 @@ def cropping_bak(filename,cnt):
         print("blackboard not found, repeating! ")
         time.sleep(1)
         if (cnt <5):
-            #add the function that takes a new picture here
+            os.system('raspistill -o '+filename)
             cropping_bak(filename,cnt)
         else:
-            imgcopy.save(filename+"2.jpg")
+            imgcopy.save(filename)
         #HOW TO CANCEL IF THE SENSOR IS ACTIVATED?? possible rebuild of the main program
         #mainprog()
     else:
-        img.save(filename+"2.jpg")
+        img.save(filename)
         print("image cropped and saved")
     
     #Rader som tar en ny bild efter en stunds sleep
