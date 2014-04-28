@@ -23,9 +23,12 @@ def ownfilter(pxvalues):
     print(brightness)
     enhancer=ImageEnhance.Contrast(input_img)
     if (brightness<70):
-        output_image=enhancer.enhance(1.2)
+        output_image=enhancer.enhance(1.3)
+    elif (brightness <120:
+        output_image=enhancer.enhance(0.6)
     else:
-        output_image=enhancer.enhance(0.8)
+         output_image=enhancer.enhance(0.8)
+        
     
     
     fi=output_image.filter(ImageFilter.EDGE_ENHANCE)
