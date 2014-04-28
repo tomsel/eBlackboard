@@ -30,11 +30,11 @@ def findingblobs(img):
     img=Image("warped.jpg")
     img.save("predistance.jpg")
     #color_blue = img.colorDistance(color=(86, 127, 25))
-    color_blue = img.colorDistance(color=(100, 150, 80))
+    color_blue = img.colorDistance(color=(60, 115, 50))
     #color_blue = img.colorDistance(color=(40, 112, 6))
     color_blue.save("colordistance.jpg")
-    onlyblue=color_blue.binarize(45)
-    #onlyblue=color_blue.binarize(35)
+    onlyblue=color_blue.binarize(27)
+    #onlyblue=color_blue.binarize(32)
     onlyblue.save("binarized.jpg")
     blobs=onlyblue.findBlobs()
     #blobs.draw()
@@ -49,7 +49,7 @@ def findingblobs(img):
         return("false")
     
 def findingblobsbak(img):
-    color_blue = img.colorDistance(color = (151, 35, 28))
+    color_blue = img.colorDistance(color = (181, 45, 48))
     color_blue.save("colordistance.jpg")
     onlyblue=color_blue.binarize(40)
     onlyblue.save("binarized.jpg")

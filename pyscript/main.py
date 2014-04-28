@@ -19,8 +19,8 @@ from cropmain import *
 #Configure GPIO pins on the Raspbery
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.IN)		#Left Front
-GPIO.setup(17, GPIO.IN)		#Left Back
-GPIO.setup(22, GPIO.IN)		#Right Front
+GPIO.setup(17, GPIO.IN)		#Right Front
+GPIO.setup(22, GPIO.IN)		#Left Back
 GPIO.setup(27, GPIO.IN)		#Right Back
 
 GPIO.setup(9, GPIO.OUT)		#Gren Diode
@@ -35,7 +35,7 @@ tunnel=subprocess.Popen("python2.7 tunnel.py", shell=True, preexec_fn=os.setsid)
 imgpath='eblackboard.se/public_html/img'
 
 #This is used when there's no lecture held in EA:
-[course_code, course_name]=["wrk011", "working 22 april"]
+[course_code, course_name]=["tst002", "test 28 april"]
 
 #These three lines will upload the device's IP address to our webserver
 os.system("ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d ':' -f2 | cut -d ' ' -f1 >> IP.txt")
@@ -50,38 +50,39 @@ def trigger():
 	if GPIO.input(4) == False:	
 		ret=4
 		GPIO.output(10, True)
-		for x in range (0, 10):
+		for x in range (0, 20):
+			print "motor running"
 			GPIO.output(18, True)
-			time.sleep(0.0012)
+			time.sleep(0.0011)
 			GPIO.output(18, False)
 			time.sleep(1)
 	
 	if GPIO.input(17) == False:
 		ret=17
 		GPIO.output(10, True)
-		for x in range (0, 10):
+		for x in range (0, 20):
 			GPIO.output(18, True)
-			time.sleep(0.0012)
+			time.sleep(0.00165)
 			GPIO.output(18, False)
-			time.sleep(0.5)
+			time.sleep(1)
 	
 	if GPIO.input(22) == False:
 		ret=22
 		GPIO.output(10, True)
 		for x in range (0, 10):
 			GPIO.output(18, True)
-			time.sleep(0.0018)
+			time.sleep(0.012)
 			GPIO.output(18, False)
-			time.sleep(0.5)
+			time.sleep(1)
 	
 	if GPIO.input(27) == False:
 		ret=27
 		GPIO.output(10, True)
 		for x in range (0, 10):
 			GPIO.output(18, True)
-			time.sleep(0.0018)
+			time.sleep(0.018)
 			GPIO.output(18, False)
-			time.sleep(0.5)
+			time.sleep(1)
 	if ret!=0:
 		time.sleep(2)
 		GPIO.output(9, True)
@@ -95,8 +96,9 @@ try:
 	while True:
 		poll=trigger()		#Polling the trigger function to check the pins
 		if poll!=0:			#If there is activity:
+			print "running"
 			#Set a bunch of variables
-			[course_code, course_name]=get_course("EA")
+			#[course_code, course_name]=get_course("EA")
 			if course_code != "none":
 				datestamp = datetime.date.today().isoformat()
 				timestamp = time.strftime("%H:%M:%S", time.gmtime())
@@ -104,10 +106,10 @@ try:
 				os.system('raspistill -o '+filename)	#Tell the camera module to take a picture
 			
 				#Check which sensor was triggered and crop the picture accordingly
-				if(poll==4 or poll==22):
+				if(poll==4 or poll==17):
 					#print "fram"
 					cropping_fram(filename, 0)
-				elif(poll==17 or poll==27):
+				elif(poll==22 or poll==27):
 					#print "bak"
 					cropping_bak(filename, 0)
 

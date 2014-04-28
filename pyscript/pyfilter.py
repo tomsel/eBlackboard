@@ -24,7 +24,7 @@ def ownfilter(pxvalues):
     enhancer=ImageEnhance.Contrast(input_img)
     if (brightness<70):
         output_image=enhancer.enhance(1.3)
-    elif (brightness <120:
+    elif (brightness <120):
         output_image=enhancer.enhance(0.6)
     else:
          output_image=enhancer.enhance(0.8)
