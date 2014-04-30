@@ -48,8 +48,19 @@ for x in range (0, 10):
 
 crntPos='c'	
 lstPos=['l','c','r']
+lstPosN=[0.0013, 0.0015, 0.0017]
+
 GPIO.output(9, True) #Might want to wait with the all-clear until tunnel is open.
-	
+
+def servo(dest):
+	signals = np.linspace(lstPosN[lstPos.index(crntPos)],lstPosN[lstPos.index(dest)], 101)
+	for signal in signals:
+		GPIO.output(18, True)
+		time.sleep(signal)
+		print signal
+		GPIO.output(18, False)
+		time.sleep(0.02-signal)
+
 #The trigger function. 
 #When ran it will check for activity on the GPIO pins and if there's activity it will return the pin number in question. 
 #It also controls the servo and lights a diode.
@@ -57,51 +68,34 @@ def trigger():
 	ret=0
 	if GPIO.input(4) == False:	
 		ret=4
-		GPIO.output(10, True)
-		for x in range (0, 20):
-			GPIO.output(18, True)
-			time.sleep(0.0011)
-			GPIO.output(18, False)
-			time.sleep(1)
+		dest = 'l'
 	
 	if GPIO.input(17) == False:
 		ret=17
-		GPIO.output(10, True)
-		for x in range (0, 20):
-			GPIO.output(18, True)
-			time.sleep(0.00165)
-			GPIO.output(18, False)
-			time.sleep(1)
+		dest = 'r'
 	
 	if GPIO.input(22) == False:
 		ret=22
-		GPIO.output(10, True)
-		for x in range (0, 10):
-			GPIO.output(18, True)
-			time.sleep(0.012)
-			GPIO.output(18, False)
-			time.sleep(1)
+		dest = 'l'
 	
 	if GPIO.input(27) == False:
 		ret=27
-		GPIO.output(10, True)
-		for x in range (0, 10):
-			GPIO.output(18, True)
-			time.sleep(0.018)
-			GPIO.output(18, False)
-			time.sleep(1)
+		dest = 'r'
+		
 	if ret!=0:
-		time.sleep(2)
+		GPIO.output(10, True)
+		servo(dest)
+		time.sleep(1)
 		GPIO.output(9, True)
 		print ret
-	return ret
+	return ret, dest
 
 	
 #This is the actual main part of the program.
 #It is basically an infinite loop. If an exception is thrown we catch it and exit the program properly.
 try:
 	while True:
-		poll=trigger()		#Polling the trigger function to check the pins
+		[poll, crntPos]=trigger()		#Polling the trigger function to check the pins
 		if poll!=0:			#If there is activity:
 			print "running"
 			#Set a bunch of variables
