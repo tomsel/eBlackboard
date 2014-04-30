@@ -21,7 +21,7 @@ def get_course(ROOM):
 				code = component.get('SUMMARY')
 				name = component.get('DESCRIPTION').split('\n', 1)[0]
 				if name.split(' ')[0] == 'ID' or len(code)>8:
-					return ["none", "none"]
+					return None
 				else:
 					return [code, name]
 	
