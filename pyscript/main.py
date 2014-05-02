@@ -14,7 +14,7 @@ import datetime
 from ftpupload import upload #now sftp
 from mysqlcon import insertdata
 from metadata import get_course
-from cropmain import *
+from imgprocessing import *
 
 #Configure GPIO pins on the Raspberry
 GPIO.setmode(GPIO.BCM)
@@ -66,6 +66,7 @@ def servo(dest):
 #It also controls the servo and lights a diode.
 def trigger():
 	ret=0
+	dest = crntPos
 	if GPIO.input(4) == False:	
 		ret=4
 		dest = 'l'
@@ -88,8 +89,7 @@ def trigger():
 		time.sleep(1)
 		GPIO.output(9, True)
 		print ret
-	return ret, dest
-
+	return ret, dest 
 	
 #This is the actual main part of the program.
 #It is basically an infinite loop. If an exception is thrown we catch it and exit the program properly.
@@ -113,11 +113,9 @@ try:
 			
 				#Check which sensor was triggered and crop the picture accordingly
 				if(poll==4 or poll==17):
-					#print "fram"
-					cropping_fram(filename, 0)
+					imgproc(filename)
 				elif(poll==22 or poll==27):
-					#print "bak"
-					cropping_bak(filename, 0)
+					imgproc(filename)
 
 				#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
 				upload(imgpath,course_code,filename)
