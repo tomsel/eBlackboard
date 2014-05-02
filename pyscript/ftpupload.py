@@ -41,14 +41,12 @@ def upload(path,directory,filename):
 		transport.close()
 	
 	#handle any exception	
-	except Exception as e:
-		print('*** Caught exception: %s: %s' % (e.__class__, e))
-		traceback.print_exc()
+	except Exception:
 		try:
 		    transport.close()
 		except:
-		    pass
-		sys.exit(1)
+		    raise
+		raise
 
 """
 def upload(path,directory,filename):

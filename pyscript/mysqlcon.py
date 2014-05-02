@@ -12,12 +12,9 @@ def insertdata(PATH, DATE, COURSECODE, COURSENAME):
 				if cur.fetchone()[0]==0:
 					cur.execute("INSERT INTO Courses VALUES (NULL,'"+COURSECODE+"','"+COURSENAME+"')")
 		
-	except mdb.Error, e:
-
-		print "Error %d: %s" % (e.args[0],e.args[1])
-		sys.exit(1)
-
-	if con:
-		con.close()
-		print ('connection closed')
-		
+	except mdb.Error:
+		try:
+			con.close()
+		except:
+			raise
+	raise

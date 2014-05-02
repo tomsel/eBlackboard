@@ -5,7 +5,6 @@ import numpy as np
 import sys
 
 #TODO: -Implement custom exceptions and handle them properly
-#	   -Tweak blob size value
 #	   -Figure out aspect ratio of the blackboard and tweak final image size
 
 #Initial strategy:
@@ -24,14 +23,20 @@ def imgproc(filename):
 	#img2.save('tmp/1 dilated edges.jpg')
 
 	#We assume the camera is centered on the blackboard and that one of the target point doesn't hit text or figures.
-	targets=np.array(((img.width/2,img.height/2-20-150),
+	targets=np.array(((img.width/2,img.height/2-150),
 					  (img.width/2+500,img.height/2-150),
-					  (img.width/2-500,img.height/2-150)))
+					  (img.width/2-500,img.height/2-150),
+					  (img.width/2,img.height/2-100),
+					  (img.width/2+500,img.height/2-100),
+					  (img.width/2-500,img.height/2-100),
+					  (img.width/2,img.height/2-50),
+					  (img.width/2+500,img.height/2-50),
+					  (img.width/2-500,img.height/2-50)))
 
 	img2fill=img2.floodFill(targets, color=(255,255,255))
-	for target in targets:
-		img2fill.drawCircle(target,10,(0,0,255),3)
 	
+	#for target in targets:
+	#	img2fill.drawCircle(target,10,(0,0,255),3)
 	#img2fill.save('tmp/2 flooded.jpg')
 
 	img3 = img2fill.erode(4)
@@ -45,7 +50,7 @@ def imgproc(filename):
 
 	#Let's draw a couple of lines
 	lines=mask.findLines(threshold=80, minlinelength=40, maxlinegap=1) 
-	lines.draw((255,0,0), 5)
+	#lines.draw((255,0,0), 5)
 	#mask.save('tmp/5 lines.jpg')
 
 	#Find out where the lines intersect. This will be roughly where the corners are.
@@ -60,14 +65,14 @@ def imgproc(filename):
 			
 	#Regard the duplicate corners as clusters and find the centre of each cluster through the k-means algorithm.
 	cornerArray = kmeans(np.array(corners), 4)[0]
-
+	#TODO: Raise exception if kmeans fails
 	#Find the centre of mass of the blackboard projection.
 	center=np.array((0,0))
 	for corner in cornerArray:
 		img.drawCircle(corner, 20, (255,0,0), 2)
 		center+=corner
-	center = np.divide(center,len(cornerArray))
-	img.drawCircle(center, 20, (0,255,0), 4)
+	center = np.divide(center,4)
+	#img.drawCircle(center, 20, (0,255,0), 4)
 	#img.save('tmp/6 corners.jpg')
 
 	#Rearrange the corners to sit where they're supposed to
@@ -94,7 +99,5 @@ def imgproc(filename):
 	result = cv.CreateMat(3,3,cv.CV_32FC1)
 	cv.GetPerspectiveTransform(src,points,result)
 	img5 = img.transformPerspective(result).crop(0,0,width,height)
-	for target in targets:
-		img5.drawCircle(target,10,(0,0,255),3)
 	#img5.save('tmp/7 result.jpg')
 	img5.save(filename)
