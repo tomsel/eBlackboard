@@ -124,7 +124,9 @@ try:
 					#Turn off the diodes
 					GPIO.output(10, False)
 		#If the program throws a different exception
-		except Exception:
+		except Exception as e:
+			if e.args[0] == 'imgprocException'
+				upload(imgpath, '0. bad images', filename)
 			logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
 			pass
 except Exception:
