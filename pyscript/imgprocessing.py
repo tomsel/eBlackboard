@@ -25,8 +25,8 @@ def imgproc(filename):
 
 	#We assume the camera is centered on the blackboard and that one of the target point doesn't hit text or figures.
 	targets=np.array(((img.width/2,img.height/2-20-150),
-					  (img.width/2+50,img.height/2-150),
-					  (img.width/2-50,img.height/2-150)))
+					  (img.width/2+500,img.height/2-150),
+					  (img.width/2-500,img.height/2-150)))
 
 	img2fill=img2.floodFill(targets, color=(255,255,255))
 	for target in targets:
@@ -44,7 +44,7 @@ def imgproc(filename):
 	#mask.save('tmp/4 mask.jpg')
 
 	#Let's draw a couple of lines
-	lines=mask.findLines(threshold=80, minlinelength=50, maxlinegap=5) 
+	lines=mask.findLines(threshold=80, minlinelength=40, maxlinegap=1) 
 	lines.draw((255,0,0), 5)
 	#mask.save('tmp/5 lines.jpg')
 
@@ -94,6 +94,7 @@ def imgproc(filename):
 	result = cv.CreateMat(3,3,cv.CV_32FC1)
 	cv.GetPerspectiveTransform(src,points,result)
 	img5 = img.transformPerspective(result).crop(0,0,width,height)
-
+	for target in targets:
+		img5.drawCircle(target,10,(0,0,255),3)
 	#img5.save('tmp/7 result.jpg')
 	img5.save(filename)

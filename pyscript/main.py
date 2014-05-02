@@ -48,16 +48,15 @@ for x in range (0, 10):
 
 crntPos='c'	
 lstPos=['l','c','r']
-lstPosN=[0.0013, 0.0015, 0.0017]
+lstPosN=[0.0012, 0.0015, 0.00167]
 
 GPIO.output(9, True) #Might want to wait with the all-clear until tunnel is open.
 
 def servo(dest):
-	signals = np.linspace(lstPosN[lstPos.index(crntPos)],lstPosN[lstPos.index(dest)], 101)
+	signals = np.linspace(lstPosN[lstPos.index(crntPos)],lstPosN[lstPos.index(dest)], 151)
 	for signal in signals:
 		GPIO.output(18, True)
 		time.sleep(signal)
-		print signal
 		GPIO.output(18, False)
 		time.sleep(0.02-signal)
 
