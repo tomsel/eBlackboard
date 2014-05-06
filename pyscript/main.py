@@ -115,7 +115,7 @@ try:
 					tries = 0
 					while tries<3:
 						try:
-							os.system('raspistill -n -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
+							os.system('raspistill -n -w 2592 -h 1000 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
 							tries = imgproc(filename, tries) #Process the image
 						except Exception as e:
 							if e.args[0] == 'imgprocException':
