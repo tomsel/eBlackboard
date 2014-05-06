@@ -12,8 +12,9 @@ import sys
 #The blackboard should now be a big white thing in the middle. 
 #Now we erode the smaller junk that was found around the blackboard.
 
-def imgproc(filename):
+def imgproc(filename, tries):
 	try:
+		tries+=1
 		#avoid img7, img11
 		#img2 is not exactly fair either
 		#img12 is... interesting
@@ -93,7 +94,7 @@ def imgproc(filename):
 		top.extend(bot)
 		cornerArray=np.array(top)
 		
-		if cornerArray[3][1] - cornerArray[0][1] < 600: 
+		if cornerArray[3][1] - cornerArray[0][1] < 600 or cornerArray[4][1] - cornerArray[1][1] < 600: 
 			raise Exception
 		
 		#Change the perspective, crop, and Bob's your uncle. Done

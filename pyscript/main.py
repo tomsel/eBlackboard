@@ -111,26 +111,37 @@ try:
 					datestamp = datetime.date.today().isoformat()
 					timestamp = time.strftime("%H:%M:%S", time.gmtime())
 					filename=datestamp+'.'+timestamp+'.jpg'
-					os.system('raspistill -n -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
+					
+					tries = 0
+					while tries<3:
+						try:
+							os.system('raspistill -n -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
+							tries = imgproc(filename, tries) #Process the image
+						except Exception as e:
+							if e.args[0] == 'imgprocException':
+								logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
+								pass
+							else:
+								raise
+					if tries=3:
+						upload(imgpath, '0. bad images', filename)
+						upload('eblackboard.se','public_html','errors.log')
+						os.system("rm"+filename)
+					else:	
+						#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
+						upload(imgpath,course_code,filename)
+						os.system("rm "+filename)
+						insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 			
-					#Process the image
-					imgproc(filename)
-
-					#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
-					upload(imgpath,course_code,filename)
-					os.system("rm "+filename)
-					insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
-			
-					#Turn off the diodes
+					#Turn off the red diode
 					GPIO.output(10, False)
 		#If the program throws a different exception
-		except Exception as e:
-			if e.args[0] == 'imgprocException'
-				upload(imgpath, '0. bad images', filename)
+		except Exception:
 			logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
 			pass
 except Exception:
 	logging.exception('Fatal error: ')
+	upload('eblackboard.se','public_html','errors.log')
 	sys.exit(1)
 finally:
 	os.killpg(tunnel.pid, signal.SIGTERM) #Kill the subprocess we spawned
