@@ -115,8 +115,9 @@ try:
 					tries = 0
 					while tries<3:
 						try:
+							tries+=1
 							os.system('raspistill -n -w 2592 -h 1000 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
-							tries = imgproc(filename, tries) #Process the image
+							imgproc(filename) #Process the image
 						except Exception as e:
 							if e.args[0] == 'imgprocException':
 								logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')

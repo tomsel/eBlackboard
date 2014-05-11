@@ -12,9 +12,8 @@ import sys
 #The blackboard should now be a big white thing in the middle. 
 #Now we erode the smaller junk that was found around the blackboard.
 
-def imgproc(filename, tries):
+def imgproc(filename):
 	try:
-		tries+=1
 		#avoid img7, img11
 		#img2 is not exactly fair either
 		#img12 is... interesting
@@ -66,6 +65,7 @@ def imgproc(filename, tries):
 						corners.append(pt)
 			
 		#Regard the duplicate corners as clusters and find the centre of each cluster through the k-means algorithm.
+		#TODO: cornerArray = kmeans(np.array(corners), np.array((0,0),(0,mask.width),(mask.height,mask.width),(0,mask.height)))[0]
 		cornerArray = kmeans(np.array(corners), 4)[0]
 		if len(cornerArray) < 4:
 			raise Exception
