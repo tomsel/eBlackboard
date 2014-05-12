@@ -102,29 +102,26 @@ try:
 	#It is basically an infinite loop. If an exception is raised we catch it, write it to a log file and carry on.
 	while True:
 		try:
+			datestamp = datetime.date.today().isoformat()
+			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			[poll, crntPos]=trigger()		#Polling the trigger function to check the pins
 			if poll!=0:	#If there is activity:
 				[course_code, course_name]=["wrk001", "work may 30"] #This is used when there's no lecture held in EA
 				#[course_code, course_name]=get_course("EA")
 
 				if course_code != None:
-					datestamp = datetime.date.today().isoformat()
-					timestamp = time.strftime("%H:%M:%S", time.gmtime())
 					filename=datestamp+'.'+timestamp+'.jpg'
-					
 					tries = 0
 					while tries<3:
 						try:
 							tries+=1
 							os.system('raspistill -n -w 2592 -h 1000 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
 							imgproc(filename) #Process the image
+							break
 						except Exception as e:
-							if e.args[0] == 'imgprocException':
-								logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
-								pass
-							else:
-								raise
-					if tries=3:
+							logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
+							pass
+					if tries==3:
 						upload(imgpath, '0. bad images', filename)
 						upload('eblackboard.se','public_html','errors.log')
 						os.system("rm"+filename)

@@ -45,7 +45,7 @@ def imgproc(filename):
 		#Here we actually do the detective work of finding that big white thing, and then we smooth it out.
 		blobs = img3.findBlobs(minsize=700000)
 		if len(blob)>1: 
-			raise Exception
+			raise Exception('too many blobs')
 		mask = blobs[0].getFullHullMask()
 		#mask.save('tmp/4 mask.jpg')
 
@@ -68,7 +68,7 @@ def imgproc(filename):
 		#TODO: cornerArray = kmeans(np.array(corners), np.array((0,0),(0,mask.width),(mask.height,mask.width),(0,mask.height)))[0]
 		cornerArray = kmeans(np.array(corners), 4)[0]
 		if len(cornerArray) < 4:
-			raise Exception
+			raise Exception('not enough corners')
 		#Find the centre of mass of the blackboard projection.
 		center=np.array((0,0))
 		for corner in cornerArray:
@@ -94,8 +94,10 @@ def imgproc(filename):
 		top.extend(bot)
 		cornerArray=np.array(top)
 		
-		if cornerArray[3][1] - cornerArray[0][1] < 600 or cornerArray[4][1] - cornerArray[1][1] < 600: 
-			raise Exception
+		dist3_0 = cornerArray[3][1] - cornerArray[0][1]
+		dist2_1 = cornerArray[2][1] - cornerArray[1][1]
+		if dist3_0 < 550 or dist2_1 < 550: 
+			raise Exception('corners too close to eachother; 3:0='+str(dist3_0)+' 2:1='+str(dist2_1))
 		
 		#Change the perspective, crop, and Bob's your uncle. Done
 		width=2000
@@ -108,5 +110,5 @@ def imgproc(filename):
 		#img5.save('tmp/7 result.jpg')
 		img5.save(filename)
 	
-	except Exception:
-		raise Exception('imgprocException')
+	except Exception as e:
+		raise e
