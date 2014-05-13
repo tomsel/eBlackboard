@@ -118,9 +118,6 @@ try:
 							tries+=1
 							os.system('raspistill -n -w 2592 -h 1300 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
 							imgproc(filename) #Process the image
-							upload(imgpath,course_code,filename)
-							os.system("rm "+filename)
-							insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 							break
 						except Exception as e:
 							logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
@@ -128,7 +125,13 @@ try:
 					else:
 						upload(imgpath, '0. bad images', filename)
 						upload('eblackboard.se','public_html','errors.log')
-						os.system("rm"+filename)	
+						os.system("rm"+filename)
+						continue	
+					
+					#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
+					upload(imgpath,course_code,filename)
+					os.system("rm "+filename)
+					insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
 					#Turn off the red diode
 					GPIO.output(10, False)
 		#If the program throws a different exception
