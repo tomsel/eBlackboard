@@ -44,7 +44,7 @@ def imgproc(filename):
 
 		#Here we actually do the detective work of finding that big white thing, and then we smooth it out.
 		blobs = img3.findBlobs(minsize=700000)
-		if len(blob)>1: 
+		if len(blobs)>1: 
 			raise Exception('too many blobs')
 		mask = blobs[0].getFullHullMask()
 		#mask.save('tmp/4 mask.jpg')

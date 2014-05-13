@@ -31,6 +31,7 @@ def servo(dest):
 #When ran it will check for activity on the GPIO pins and if there's activity it will return the pin number in question. 
 #It also controls the servo and lights a diode.
 def trigger():
+	time.sleep(0.001)
 	ret=0
 	dest = crntPos
 	if GPIO.input(4) == False:	
@@ -93,7 +94,7 @@ try:
 
 	crntPos='c'	
 	lstPos=['l','c','r']
-	lstPosN=[0.0012, 0.0015, 0.00167]
+	lstPosN=[0.0012, 0.0015, 0.00172]
 
 	GPIO.output(9, True) #Might want to wait with the all-clear until tunnel is open.
 
@@ -115,7 +116,7 @@ try:
 					while tries<3:
 						try:
 							tries+=1
-							os.system('raspistill -n -w 2592 -h 1000 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
+							os.system('raspistill -n -w 2592 -h 1300 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
 							imgproc(filename) #Process the image
 							break
 						except Exception as e:
