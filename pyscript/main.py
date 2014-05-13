@@ -20,7 +20,7 @@ from imgprocessing import *
 
 #Servo control function. A little bit too much jitter on the signal but it's fine for now.
 def servo(dest):
-	signals = np.linspace(lstPosN[lstPos.index(crntPos)],lstPosN[lstPos.index(dest)], 151)
+	signals = np.linspace(lstPosN[lstPos.index(crntPos)],lstPosN[lstPos.index(dest)], 150)
 	for signal in signals:
 		GPIO.output(18, True)
 		time.sleep(signal)
@@ -51,10 +51,9 @@ def trigger():
 		dest = 'r'
 		
 	if ret!=0:
+		GPIO.output(9, True)
 		GPIO.output(10, True)
 		servo(dest)
-		time.sleep(1)
-		GPIO.output(9, True)
 		print ret
 	return ret, dest 
 	
@@ -107,8 +106,8 @@ try:
 			timestamp = time.strftime("%H:%M:%S", time.gmtime())
 			[poll, crntPos]=trigger()		#Polling the trigger function to check the pins
 			if poll!=0:	#If there is activity:
-				[course_code, course_name]=["wrk001", "work may 30"] #This is used when there's no lecture held in EA
-				#[course_code, course_name]=get_course("EA")
+				#[course_code, course_name]=["wrk001", "work may 30"] #This is used when there's no lecture held in EA
+				[course_code, course_name]=get_course("EA")
 
 				if course_code != None:
 					filename=datestamp+'.'+timestamp+'.jpg'
@@ -118,21 +117,24 @@ try:
 							tries+=1
 							os.system('raspistill -n -w 2592 -h 1300 -t 2000 -o '+filename)	#Tell the camera module to take a picture (after 2000ms) 
 							imgproc(filename) #Process the image
+							print 'finished image processing'
 							break
 						except Exception as e:
 							logging.exception('An exception was caught on ' +datestamp+' '+timestamp+' UTC: ')
 							pass
 					else:
+						print 'failed after 3 tries'
 						upload(imgpath, '0. bad images', filename)
 						upload('eblackboard.se','public_html','errors.log')
-						os.system("rm"+filename)
+						os.system("rm "+filename)
+						GPIO.output(9, False)
 						continue	
 					
 					#Upload the picture to the server and remove the picture file. Also insert the data in our database table.
+					print 'Uploading and shit'
 					upload(imgpath,course_code,filename)
 					os.system("rm "+filename)
 					insertdata('../img/'+course_code+'/'+filename, datestamp, course_code, course_name)
-					#Turn off the red diode
 					GPIO.output(10, False)
 		#If the program throws a different exception
 		except Exception:
@@ -140,9 +142,7 @@ try:
 			pass
 except Exception:
 	logging.exception('Fatal error: ')
-	upload('eblackboard.se','public_html','errors.log')
-	sys.exit(1)
 finally:
 	os.killpg(tunnel.pid, signal.SIGTERM) #Kill the subprocess we spawned
 	GPIO.cleanup() #cleanup on all GPIO channels
-		
+	upload('eblackboard.se','public_html','errors.log')
